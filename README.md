@@ -1,8 +1,9 @@
-# React + Vite
+# UniPlan
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+UniPlan is a planner platform intended for university students, inspired by my Google Sheets monster spreadsheet. I always hoped for a better, more visually appealing place for my the most essential tracker needs: TODO tracking, Internship Tracking, Finance tracking, and Resume tracking. UniPlan aspires to be a no-nonsense, clutter free platform optimized for the everday ambitious university student.
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Features planned for the future:
+- Option to add custom page in sidebar, with a number of page templates to choose from
+- Added customizability (theme, accent color)
+- Notification scheduler
+- Mobile support
