@@ -1,57 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import { auth, db } from '../firebase';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { doc, onSnapshot, setDoc, getDoc } from 'firebase/firestore';
 
 const Hero3 = () => {
-  const [internships, setInternships] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [applications, setApplications] = useState([]);
+  const [removingId, setRemovingId] = useState(null);
 
   useEffect(() => {
-    const loadInternships = async () => {
-      if (auth.currentUser) {
-        const docRef = doc(db, 'users', auth.currentUser.uid);
-        const docSnap = await getDoc(docRef);
-        console.log('Raw internships data:', docSnap.data()?.internships);
-        
-        if (docSnap.exists() && docSnap.data().internships) {
-          const todoInternships = docSnap.data().internships.filter(
-            internship => internship.status.toLowerCase() === 'todo'
-          );
-          console.log('Filtered todo internships:', todoInternships);
-          setInternships(todoInternships);
-        }
+    if (!auth.currentUser) return;
+
+    const userDocRef = doc(db, 'users', auth.currentUser.uid);
+    
+    const unsubscribe = onSnapshot(userDocRef, (docSnapshot) => {
+      if (docSnapshot.exists()) {
+        const userData = docSnapshot.data();
+        const todoApps = (userData.applications || []).filter(app => app.status === 'Todo');
+        setApplications(todoApps);
       }
-      setLoading(false);
-    };
-    loadInternships();
+    });
+
+    return () => unsubscribe();
   }, []);
 
-  const markAsApplied = async (internshipId) => {
-    if (auth.currentUser) {
-      const docRef = doc(db, 'users', auth.currentUser.uid);
-      const docSnap = await getDoc(docRef);
+  const markAsApplied = async (id) => {
+    setRemovingId(id);
+    
+    setTimeout(async () => {
+      const userDocRef = doc(db, 'users', auth.currentUser.uid);
+      const docSnap = await getDoc(userDocRef);
       
       if (docSnap.exists()) {
-        const allInternships = docSnap.data().internships;
-        const updatedInternships = allInternships.map(internship =>
-          internship.id === internshipId 
-            ? { ...internship, status: 'Applied' }
-            : internship
+        const allApps = docSnap.data().applications;
+        const updatedApps = allApps.map(app =>
+          app.id === id ? { ...app, status: 'Applied' } : app
         );
         
-        await updateDoc(docRef, { internships: updatedInternships });
-        setInternships(prev => prev.filter(internship => internship.id !== internshipId));
+        await setDoc(userDocRef, { applications: updatedApps }, { merge: true });
       }
-    }
+    }, 300);
   };
-
-  if (loading) {
-    return (
-      <div className="h-3/5 bg-offblack rounded-xl p-4 text-white flex items-center justify-center">
-        Loading...
-      </div>
-    );
-  }
 
   return (
     <div className="h-3/5 bg-offblack rounded-xl p-4 text-white">
@@ -66,20 +53,25 @@ const Hero3 = () => {
             </tr>
           </thead>
           <tbody>
-            {internships.map(internship => (
-              <tr key={internship.id} className="border-t border-gray-700">
-                <td className="py-2">{internship.company}</td>
-                <td className="py-2">{internship.program}</td>
+            {applications.map(app => (
+              <tr 
+                key={app.id} 
+                className={`border-t border-gray-700 transition-all duration-300 ${
+                  removingId === app.id ? 'opacity-0 transform translate-x-full' : ''
+                }`}
+              >
+                <td className="py-2">{app.company}</td>
+                <td className="py-2">{app.program}</td>
                 <td className="py-2 text-center">
                   <input
                     type="checkbox"
-                    onChange={() => markAsApplied(internship.id)}
+                    onChange={() => markAsApplied(app.id)}
                     className="h-4 w-4"
                   />
                 </td>
               </tr>
             ))}
-            {internships.length === 0 && (
+            {applications.length === 0 && (
               <tr>
                 <td colSpan={3} className="text-center py-4 text-gray-400">
                   No pending applications
