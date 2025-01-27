@@ -3,7 +3,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase';
 import logo from '../assets/logo.svg';
 
-const SignIn = ({ setShowSignin, setIsLoggedIn, setShowSignup }) => {
+const Signin = ({ setShowSignin, setIsLoggedIn, setShowSignup }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -67,4 +67,4 @@ const SignIn = ({ setShowSignin, setIsLoggedIn, setShowSignup }) => {
   );
 };
 
-export default SignIn;
+export default Signin;
