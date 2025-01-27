@@ -17,7 +17,11 @@ Deployed site link: https://uniplan-mu.vercel.app/ <br>
 Development time: 4 hours <br>
 YouTube link demo: 
 
-To run locally, clone the repository and run [npm i] to install dependencies and [npm run dev] to run the project on localhost. 
+**Instructions** ❗
+To run on the site, sign up for an account and enter the credentials to save work. If you would like to use an already registered account just to test it, the credentials are: <br>
+**- Username: test@gmail.com
+** <br> **- Password: testtest
+** <br> To run locally, clone the repository and run [npm i] to install dependencies and [npm run dev] to run the project on localhost. 
 
 ----------------------------------------------
 
