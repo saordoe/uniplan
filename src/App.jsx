@@ -5,8 +5,8 @@ import PTodo from './pages/PTodo';
 import PDegree from './pages/PDegree';
 import PFinances from './pages/PFinances';
 import PAccount from './pages/PAccount';
-import { Routes, Route } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase';
 
@@ -20,11 +20,13 @@ const App = () => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setIsLoggedIn(!!user);
       setLoading(false);
+      if (!user) setShowSignin(true);
     });
-
     return () => unsubscribe();
   }, []);
-  
+
+  if (loading) return null;
+
   return (
     <div className="flex h-screen w-full">
       <Navbar
@@ -33,7 +35,7 @@ const App = () => {
         isLoggedIn={isLoggedIn}
       />
       <div className="w-3/4 h-full flex-grow">
-        {(showSignin || showSignup) && !isLoggedIn ? (
+        {(!isLoggedIn || showSignin) ? (
           <Hero 
             showSignin={showSignin} 
             setShowSignin={setShowSignin}
@@ -43,13 +45,14 @@ const App = () => {
           />
         ) : (
           <Routes>
-            <Route index element={<Hero />} />
+            <Route path="/" element={<Navigate to="/hero" />} />
             <Route path="/hero" element={<Hero />} />
             <Route path="/internships" element={<PInternships />} />
             <Route path="/todo" element={<PTodo />} />
             <Route path="/degree" element={<PDegree />} />
             <Route path="/finances" element={<PFinances />} />
             <Route path="/account" element={<PAccount />} />
+            <Route path="*" element={<Navigate to="/hero" />} />
           </Routes>
         )}
       </div>

@@ -34,6 +34,14 @@ const Navbar = ({ setShowSignin, isLoggedIn }) => {
             colorClass={selectedButton === "Todo" ? "bg-gray-800" : ""}
           />
         </Link>
+        <Link to="/internships" onClick={() => handleButtonClick("Internships")}>
+          <Button
+            falogoName={faChartLine}
+            buttonName="Internships"
+            tColor={selectedButton === "Internships" ? "text-gray-300" : "text-offwhite"}
+            colorClass={selectedButton === "Internships" ? "bg-gray-800" : ""}
+          />
+        </Link>
         <div className='ml-1'>
         <Link to="/degree" onClick={() => handleButtonClick("Degree")}>
           <Button
@@ -52,15 +60,6 @@ const Navbar = ({ setShowSignin, isLoggedIn }) => {
             colorClass={selectedButton === "Finances" ? "bg-gray-800" : ""}
           />
         </Link>
-        <Link to="/internships" onClick={() => handleButtonClick("Internships")}>
-          <Button
-            falogoName={faChartLine}
-            buttonName="Internships"
-            tColor={selectedButton === "Internships" ? "text-gray-300" : "text-offwhite"}
-            colorClass={selectedButton === "Internships" ? "bg-gray-800" : ""}
-          />
-        </Link>
-        
         <div className="mt-72">
         {isLoggedIn ? (
           <Link to="/account">
