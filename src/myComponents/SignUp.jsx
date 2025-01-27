@@ -4,7 +4,7 @@ import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase';
 import logo from '../assets/logo.svg';
 
-const SignUp = ({ setShowSignup, setShowSignin }) => {
+const Signup = ({ setShowSignup, setShowSignin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -73,4 +73,4 @@ const SignUp = ({ setShowSignup, setShowSignin }) => {
   );
 };
 
-export default SignUp;
+export default Signup;
