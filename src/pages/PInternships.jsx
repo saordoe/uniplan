@@ -85,7 +85,7 @@ const PInternships = () => {
     await saveToFirestore(updatedApplications);
   };
 
-  const statusOptions = ['Todo', 'Applied', "Didn't Apply", 'Rejected', 'Accepted'];
+  const statusOptions = ['Todo', 'Applied', "Didn't Apply"];
   const resultOptions = ['N/A', 'Rejected', 'Accepted'];
 
   const handleSort = (key) => {
