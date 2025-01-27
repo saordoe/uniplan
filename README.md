@@ -13,8 +13,8 @@ Features:
 - Firebase integration for user login / authentication
 - Button animations for smooth user experience
 
-Deployed site link:
-Development time: 4 hours
+Deployed site link: https://uniplan-mu.vercel.app/ <br>
+Development time: 4 hours <br>
 YouTube link demo: 
 
 To run locally, clone the repository and run [npm i] to install dependencies and [npm run dev] to run the project on localhost. 
