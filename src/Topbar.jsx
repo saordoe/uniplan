@@ -4,7 +4,7 @@ const Topbar = () => {
   return (
     <div className="w-full h-16 bg-myblue">
       <h1 className="text-xl font-bold my-5 ml-6 text-black">
-        <a href="/">wattthetrade</a>
+        <a href="/">UniPlan</a>
       </h1>
     </div>
   );

@@ -13,9 +13,9 @@ const Navbar = ({ setShowSignin, isLoggedIn }) => {
 
   return (
     <div className="bg-offblack h-screen w-52 flex flex-col py-5">
-      <Link to="/hero" className="flex text-l font-bold mt-5 mb-10 text-offwhite justify-center cursor-pointer" onClick={() => handleButtonClick("Dashboard")}>
+      <Link to="/hero" className="flex text-l font-bold mt-5 mb-10 text-offwhite justify-left ml-8 cursor-pointer" onClick={() => handleButtonClick("Dashboard")}>
         <img src={logo} className="w-8 mr-2" alt="Logo" />
-        <span className="text-xl">wattthetrade</span>
+        <span className="text-xl">UniPlan</span>
       </Link>
       <nav className="flex flex-col font-semibold gap-3 items-start ml-4">
         <Link to="/hero" onClick={() => handleButtonClick("Dashboard")}>
@@ -26,48 +26,42 @@ const Navbar = ({ setShowSignin, isLoggedIn }) => {
             colorClass={selectedButton === "Dashboard" ? "bg-gray-800" : ""}
           />
         </Link>
-        <Link to="/trading" onClick={() => handleButtonClick("Trading")}>
-          <Button
-            falogoName={faMoneyBillTrendUp}
-            buttonName="Trading"
-            tColor={selectedButton === "Trading" ? "text-gray-300" : "text-offwhite"}
-            colorClass={selectedButton === "Trading" ? "bg-gray-800" : ""}
-          />
-        </Link>
-        <Link to="/trade-log" onClick={() => handleButtonClick("Trade Log")}>
+        <Link to="/todo" onClick={() => handleButtonClick("Todo")}>
           <Button
             falogoName={faClockRotateLeft}
-            buttonName="Trade Log"
-            tColor={selectedButton === "Trade Log" ? "text-gray-300" : "text-offwhite"}
-            colorClass={selectedButton === "Trade Log" ? "bg-gray-800" : ""}
+            buttonName="Todo"
+            tColor={selectedButton === "Todo" ? "text-gray-300" : "text-offwhite"}
+            colorClass={selectedButton === "Todo" ? "bg-gray-800" : ""}
           />
         </Link>
-        <Link to="/roi-dashboard" onClick={() => handleButtonClick("ROI DashB")}>
+        <div className='ml-1'>
+        <Link to="/degree" onClick={() => handleButtonClick("Degree")}>
           <Button
             falogoName={faFileInvoice}
-            buttonName="ROI DashB"
-            tColor={selectedButton === "ROI DashB" ? "text-gray-300" : "text-offwhite"}
-            colorClass={selectedButton === "ROI DashB" ? "bg-gray-800" : ""}
+            buttonName="Degree"
+            tColor={selectedButton === "Degree" ? "text-gray-300" : "text-offwhite"}
+            colorClass={selectedButton === "Degree" ? "bg-gray-800" : ""}
           />
         </Link>
-        <Link to="/incentives" onClick={() => handleButtonClick("Incentives")}>
+        </div>
+        <Link to="/finances" onClick={() => handleButtonClick("Finances")}>
           <Button
             falogoName={faPiggyBank}
-            buttonName="Incentives"
-            tColor={selectedButton === "Incentives" ? "text-gray-300" : "text-offwhite"}
-            colorClass={selectedButton === "Incentives" ? "bg-gray-800" : ""}
+            buttonName="Finances"
+            tColor={selectedButton === "Finances" ? "text-gray-300" : "text-offwhite"}
+            colorClass={selectedButton === "Finances" ? "bg-gray-800" : ""}
           />
         </Link>
-        <Link to="/analytics" onClick={() => handleButtonClick("Analytics")}>
+        <Link to="/internships" onClick={() => handleButtonClick("Internships")}>
           <Button
             falogoName={faChartLine}
-            buttonName="Analytics"
-            tColor={selectedButton === "Analytics" ? "text-gray-300" : "text-offwhite"}
-            colorClass={selectedButton === "Analytics" ? "bg-gray-800" : ""}
+            buttonName="Internships"
+            tColor={selectedButton === "Internships" ? "text-gray-300" : "text-offwhite"}
+            colorClass={selectedButton === "Internships" ? "bg-gray-800" : ""}
           />
         </Link>
         
-        <div className="mt-48">
+        <div className="mt-72">
           {isLoggedIn ? (
             <Button
               falogoName={faUserCircle}

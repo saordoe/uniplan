@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import Navbar from './myComponents/Navbar';
 import Hero from './myComponents/Hero';
-import PAnalytics from './pages/PAnalytics';
-import PTrading from './pages/PTrading';
-import PTradeLog from './pages/PTradeLog';
-import PRoi from './pages/PRoi';
-import PIncentives from './pages/PIncentives';
+import PInternships from './pages/PInternships';
+import PTodo from './pages/PTodo';
+import PDegree from './pages/PDegree';
+import PFinances from './pages/PFinances';
 import { Routes, Route } from 'react-router-dom';
 
 const App = () => {
   const [showSignin, setShowSignin] = useState(false);
+  const [showSignup, setShowSignup] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
@@ -20,17 +20,22 @@ const App = () => {
         isLoggedIn={isLoggedIn}
       />
       <div className="w-3/4 h-full flex-grow">
-        {showSignin && !isLoggedIn ? (
-          <Hero showSignin={showSignin} setShowSignin={setShowSignin} setIsLoggedIn={setIsLoggedIn} />
+        {(showSignin || showSignup) && !isLoggedIn ? (
+          <Hero 
+            showSignin={showSignin} 
+            setShowSignin={setShowSignin}
+            showSignup={showSignup}
+            setShowSignup={setShowSignup}
+            setIsLoggedIn={setIsLoggedIn} 
+          />
         ) : (
           <Routes>
             <Route index element={<Hero />} />
             <Route path="/hero" element={<Hero />} />
-            <Route path="/analytics" element={<PAnalytics />} />
-            <Route path="/trading" element={<PTrading />} />
-            <Route path="/trade-log" element={<PTradeLog />} />
-            <Route path="/roi-dashboard" element={<PRoi />} />
-            <Route path="/incentives" element={<PIncentives />} />
+            <Route path="/internships" element={<PInternships />} />
+            <Route path="/todo" element={<PTodo />} />
+            <Route path="/degree" element={<PDegree />} />
+            <Route path="/finances" element={<PFinances />} />
           </Routes>
         )}
       </div>
