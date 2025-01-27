@@ -14,7 +14,7 @@ Features:
 - Button animations for smooth user experience
 
 Deployed site link: https://uniplan-mu.vercel.app/ <br>
-Development time: 4 hours <br>
+Development time: 6 hours <br>
 YouTube link demo: 
 
 **_Instructions_** ❗<br>
