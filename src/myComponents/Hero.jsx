@@ -1,6 +1,6 @@
 import React from 'react';
-import Signin from './Signin';
 import Signup from './Signup';
+import SignIn from './Signin';
 import Hero1 from './Hero1';
 import Hero2 from './Hero2';
 import Hero3 from './Hero3';
@@ -13,7 +13,7 @@ const Hero = ({ showSignin, setShowSignin, showSignup, setShowSignup, isLoggedIn
         {(showSignin || showSignup) && !isLoggedIn ? (
           <>
             {showSignin && (
-              <Signin 
+              <SignIn 
                 setShowSignin={setShowSignin} 
                 setShowSignup={setShowSignup}
                 setIsLoggedIn={setIsLoggedIn} 
