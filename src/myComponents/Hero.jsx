@@ -1,5 +1,5 @@
 import React from 'react';
-import Signup from './Signup';
+import Signup from './SignUp';
 import Signin from './Signin';
 import Hero1 from './Hero1';
 import Hero2 from './Hero2';
