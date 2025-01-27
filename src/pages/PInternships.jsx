@@ -1,76 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Plus, ArrowUpDown, Pin } from 'lucide-react';
 import { auth, db } from '../firebase';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
-import { useEffect } from 'react';
+import { doc, getDoc, setDoc, onSnapshot } from 'firebase/firestore';
 
 const PInternships = () => {
 
-  useEffect(() => {
-    const loadUserData = async () => {
-      if (auth.currentUser) {
-        const userDoc = await getDoc(doc(db, 'users', auth.currentUser.uid));
-        if (userDoc.exists() && userDoc.data().applications) {
-          setApplications(userDoc.data().applications);
-        }
-      }
-    };
-    
-    loadUserData();
-  }, []);
-  
-  const handleAddApplication = async () => {
-    if (!newApplication.company || !newApplication.program) return;
-    
-    const newApplications = [
-      ...applications,
-      {
-        id: applications.length + 1,
-        ...newApplication
-      }
-    ];
-  
-    setApplications(newApplications);
-    
-    if (auth.currentUser) {
-      await updateDoc(doc(db, 'users', auth.currentUser.uid), {
-        applications: newApplications
-      });
-    }
-  };
-  
-  const handleUpdateStatus = async (id, field, value) => {
-    const updatedApplications = applications.map(app => 
-      app.id === id ? { ...app, [field]: value } : app
-    );
-    
-    setApplications(updatedApplications);
-    
-    if (auth.currentUser) {
-      await updateDoc(doc(db, 'users', auth.currentUser.uid), {
-        applications: updatedApplications
-      });
-    }
-  };
-
-  const [applications, setApplications] = useState([
-    {
-      id: 1,
-      company: 'Example Corp',
-      program: 'Software Engineering Intern',
-      status: 'Todo',
-      result: 'N/A',
-      link: 'https://example.com',
-      pinned: false
-    }
-  ]);
-
+  const [applications, setApplications] = useState([]);
   const [editingCell, setEditingCell] = useState(null);
   const [editValue, setEditValue] = useState('');
   const [sortConfig, setSortConfig] = useState({
     key: null,
     direction: 'ascending'
   });
+  const [loading, setLoading] = useState(true);
 
   const [newApplication, setNewApplication] = useState({
     company: '',
@@ -80,6 +22,68 @@ const PInternships = () => {
     link: '',
     pinned: false
   });
+
+  useEffect(() => {
+    if (!auth.currentUser) return;
+
+    const userDocRef = doc(db, 'users', auth.currentUser.uid);
+
+    const unsubscribe = onSnapshot(userDocRef, (docSnapshot) => {
+      if (docSnapshot.exists()) {
+        const userData = docSnapshot.data();
+        setApplications(userData.applications || []);
+      }
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+
+  const saveToFirestore = async (newApplications) => {
+    if (!auth.currentUser) return;
+
+    try {
+      await setDoc(doc(db, 'users', auth.currentUser.uid), {
+        applications: newApplications
+      }, { merge: true });
+    } catch (error) {
+      console.error('Error saving to Firestore:', error);
+    }
+  };
+  
+  const handleAddApplication = async () => {
+    if (!newApplication.company || !newApplication.program) return;
+
+    const newApplications = [
+      ...applications,
+      {
+        id: Date.now(),
+        ...newApplication
+      }
+    ];
+
+    setApplications(newApplications);
+    await saveToFirestore(newApplications);
+
+    setNewApplication({
+      company: '',
+      program: '',
+      status: 'Todo',
+      result: 'N/A',
+      link: '',
+      pinned: false
+    });
+  };
+  
+  const handleUpdateStatus = async (id, field, value) => {
+    const updatedApplications = applications.map(app =>
+      app.id === id ? { ...app, [field]: value } : app
+    );
+
+    setApplications(updatedApplications);
+    await saveToFirestore(updatedApplications);
+  };
 
   const statusOptions = ['Todo', 'Applied', "Didn't Apply", 'Rejected', 'Accepted'];
   const resultOptions = ['N/A', 'Rejected', 'Accepted'];
@@ -107,11 +111,14 @@ const PInternships = () => {
     return 0;
   });
 
-  const handleRightClick = (e, appId) => {
+  const handleRightClick = async (e, appId) => {
     e.preventDefault();
-    setApplications(applications.map(app => 
+    const updatedApplications = applications.map(app =>
       app.id === appId ? { ...app, pinned: !app.pinned } : app
-    ));
+    );
+
+    setApplications(updatedApplications);
+    await saveToFirestore(updatedApplications);
   };
 
   const startEditing = (id, field, value) => {

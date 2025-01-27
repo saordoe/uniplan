@@ -62,7 +62,8 @@ const Navbar = ({ setShowSignin, isLoggedIn }) => {
         </Link>
         
         <div className="mt-72">
-          {isLoggedIn ? (
+        {isLoggedIn ? (
+          <Link to="/account">
             <Button
               falogoName={faUserCircle}
               buttonName="My Profile"
@@ -70,7 +71,8 @@ const Navbar = ({ setShowSignin, isLoggedIn }) => {
               colorClass="bg-gray-800"
               onClick={() => handleButtonClick("My Profile")}
             />
-          ) : (
+          </Link>
+        ) : (
             <Button
               falogoName={faUserCircle}
               buttonName="Sign In"

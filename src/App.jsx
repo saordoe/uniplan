@@ -1,17 +1,30 @@
-import React, { useState } from 'react';
 import Navbar from './myComponents/Navbar';
 import Hero from './myComponents/Hero';
 import PInternships from './pages/PInternships';
 import PTodo from './pages/PTodo';
 import PDegree from './pages/PDegree';
 import PFinances from './pages/PFinances';
+import PAccount from './pages/PAccount';
 import { Routes, Route } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from './firebase';
 
 const App = () => {
   const [showSignin, setShowSignin] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setIsLoggedIn(!!user);
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, []);
+  
   return (
     <div className="flex h-screen w-full">
       <Navbar
@@ -36,6 +49,7 @@ const App = () => {
             <Route path="/todo" element={<PTodo />} />
             <Route path="/degree" element={<PDegree />} />
             <Route path="/finances" element={<PFinances />} />
+            <Route path="/account" element={<PAccount />} />
           </Routes>
         )}
       </div>
