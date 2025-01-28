@@ -4,13 +4,13 @@ import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAO3itBFroSJADXFm6dRcZke0mwLCZ6CgQ",
-  authDomain: "uniplan-f60e3.firebaseapp.com",
-  projectId: "uniplan-f60e3",
-  storageBucket: "uniplan-f60e3.firebasestorage.app",
-  messagingSenderId: "334258963282",
-  appId: "1:334258963282:web:c158b39fa24bfa1cb7308b",
-  measurementId: "G-0NX2TCGXZ9"
+  apiKey: process.env.VITE_FIREBASE_API_KEY,
+  authDomain: process.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.VITE_FIREBASE_APP_ID,
+  measurementId: process.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
 const app = initializeApp(firebaseConfig);
@@ -20,5 +20,3 @@ const storage = getStorage(app);
 
 export { storage };
 export { auth, db };
-
-
