@@ -15,7 +15,7 @@ Features:
 
 Deployed site link: https://uniplan-mu.vercel.app/ <br>
 Development time: 6 hours <br>
-YouTube link demo: 
+YouTube link demo: https://youtu.be/osoFBBmbnTw?si=e327hIqFwS38GB2g
 
 **_Instructions_** ❗<br>
 To run on the site, sign up for an account and enter the credentials to save work. If you would like to use an already registered account just to test it, the credentials are: <br>
