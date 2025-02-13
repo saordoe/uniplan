@@ -43,14 +43,14 @@ const Navbar = ({ setShowSignin, isLoggedIn }) => {
           />
         </Link>
         <div className='ml-1'>
-        <Link to="/degree" onClick={() => handleButtonClick("Degree")}>
-          <Button
-            falogoName={faFileInvoice}
-            buttonName="Degree"
-            tColor={selectedButton === "Degree" ? "text-gray-300" : "text-offwhite"}
-            colorClass={selectedButton === "Degree" ? "bg-gray-800" : ""}
-          />
-        </Link>
+          <Link to="/degree" onClick={() => handleButtonClick("Degree")}>
+            <Button
+              falogoName={faFileInvoice}
+              buttonName="Degree"
+              tColor={selectedButton === "Degree" ? "text-gray-300" : "text-offwhite"}
+              colorClass={selectedButton === "Degree" ? "bg-gray-800" : ""}
+            />
+          </Link>
         </div>
         <Link to="/finances" onClick={() => handleButtonClick("Finances")}>
           <Button
@@ -60,18 +60,18 @@ const Navbar = ({ setShowSignin, isLoggedIn }) => {
             colorClass={selectedButton === "Finances" ? "bg-gray-800" : ""}
           />
         </Link>
-        <div className="mt-72">
-        {isLoggedIn ? (
-          <Link to="/account">
-            <Button
-              falogoName={faUserCircle}
-              buttonName="My Profile"
-              tColor="text-white"
-              colorClass="bg-gray-800"
-              onClick={() => handleButtonClick("My Profile")}
-            />
-          </Link>
-        ) : (
+        <div className="mt-10"> {/* Adjusted margin-top */}
+          {isLoggedIn ? (
+            <Link to="/account">
+              <Button
+                falogoName={faUserCircle}
+                buttonName="My Profile"
+                tColor="text-white"
+                colorClass="bg-gray-800"
+                onClick={() => handleButtonClick("My Profile")}
+              />
+            </Link>
+          ) : (
             <Button
               falogoName={faUserCircle}
               buttonName="Sign In"
